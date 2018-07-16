@@ -1,11 +1,13 @@
 ## Concat
 
+### Overview
+
 This package provides simple functions that return concatenation results.
 Can work faster than Go `+` operator.
 
 You should not use this package, really. It's just an example.
 
-Benchmark results:
+### Benchmarks
 
 ```
 BenchmarkConcat2Operator-8   	20000000	        83.8 ns/op	      16 B/op	       1 allocs/op
@@ -36,3 +38,20 @@ Concat2-8  84.2ns ± 1%  57.1ns ± 3%  -32.20%  (p=0.000 n=9+9)
 
 As a bonus, asm version also makes empty strings concatenation optimization,
 just like runtime version of concat would.
+
+### Example
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/Quasilyte/concat"
+)
+
+func main() {
+	v := "world!"
+	fmt.Println(concat.Strings("hello, ", v)) // => "hello, world!"
+}
+```
