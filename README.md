@@ -1,7 +1,7 @@
 ## Concat
 
 This package provides simple functions that return concatenation results.
-Can work faster than Go "+" operator.
+Can work faster than Go `+` operator.
 
 You should not use this package, really. It's just an example.
 
@@ -18,3 +18,11 @@ BenchmarkConcat3-8           	20000000	        82.1 ns/op	      32 B/op	       1
 
 Number one is unsafe concatenation, second is `strings.Builder` with preallocated
 buffer and "obvious" concatenation is the slowest one... unless [CL123256](https://go-review.googlesource.com/c/go/+/123256) is applied.
+
+Using the `benchstat`, here is the difference between `concat` and `+`:
+
+```
+name       old time/op  new time/op  delta
+Concat2-8  84.2ns ± 1%  62.7ns ± 2%  -25.49%  (p=0.000 n=9+10)
+Concat3-8   103ns ± 3%    83ns ± 4%  -19.83%  (p=0.000 n=10+9)
+```
