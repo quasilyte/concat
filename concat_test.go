@@ -1,6 +1,7 @@
 package concat
 
 import (
+	"strings"
 	"testing"
 	"unsafe"
 )
@@ -94,19 +95,19 @@ func benchmarkConcat(b *testing.B, fn func([]string) string) {
 	}
 }
 
-// func BenchmarkConcat2Operator(b *testing.B) {
-// 	benchmarkConcat(b, func(xs []string) string { return xs[0] + xs[1] })
-// }
+func BenchmarkConcat2Operator(b *testing.B) {
+	benchmarkConcat(b, func(xs []string) string { return xs[0] + xs[1] })
+}
 
-// func BenchmarkConcat2Builder(b *testing.B) {
-// 	benchmarkConcat(b, func(xs []string) string {
-// 		var builder strings.Builder
-// 		builder.Grow(len(xs[0]) + len(xs[1]))
-// 		builder.WriteString(xs[0])
-// 		builder.WriteString(xs[1])
-// 		return builder.String()
-// 	})
-// }
+func BenchmarkConcat2Builder(b *testing.B) {
+	benchmarkConcat(b, func(xs []string) string {
+		var builder strings.Builder
+		builder.Grow(len(xs[0]) + len(xs[1]))
+		builder.WriteString(xs[0])
+		builder.WriteString(xs[1])
+		return builder.String()
+	})
+}
 
 func BenchmarkConcat2(b *testing.B) {
 	benchmarkConcat(b, func(xs []string) string {
@@ -114,31 +115,25 @@ func BenchmarkConcat2(b *testing.B) {
 	})
 }
 
-// func BenchmarkConcat2(b *testing.B) {
-// 	benchmarkConcat(b, func(xs []string) string {
-// 		return Strings(xs[0], xs[1])
-// 	})
-// }
+func BenchmarkConcat3Operator(b *testing.B) {
+	benchmarkConcat(b, func(xs []string) string {
+		return xs[0] + xs[1] + xs[2]
+	})
+}
 
-// func BenchmarkConcat3Operator(b *testing.B) {
-// 	benchmarkConcat(b, func(xs []string) string {
-// 		return xs[0] + xs[1] + xs[2]
-// 	})
-// }
+func BenchmarkConcat3Builder(b *testing.B) {
+	benchmarkConcat(b, func(xs []string) string {
+		var builder strings.Builder
+		builder.Grow(len(xs[0]) + len(xs[1]) + len(xs[2]))
+		builder.WriteString(xs[0])
+		builder.WriteString(xs[1])
+		builder.WriteString(xs[2])
+		return builder.String()
+	})
+}
 
-// func BenchmarkConcat3Builder(b *testing.B) {
-// 	benchmarkConcat(b, func(xs []string) string {
-// 		var builder strings.Builder
-// 		builder.Grow(len(xs[0]) + len(xs[1]) + len(xs[2]))
-// 		builder.WriteString(xs[0])
-// 		builder.WriteString(xs[1])
-// 		builder.WriteString(xs[2])
-// 		return builder.String()
-// 	})
-// }
-
-// func BenchmarkConcat3(b *testing.B) {
-// 	benchmarkConcat(b, func(xs []string) string {
-// 		return Strings3(xs[0], xs[1], xs[2])
-// 	})
-// }
+func BenchmarkConcat3(b *testing.B) {
+	benchmarkConcat(b, func(xs []string) string {
+		return Strings3(xs[0], xs[1], xs[2])
+	})
+}
