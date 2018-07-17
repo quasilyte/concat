@@ -1,5 +1,7 @@
 ## Concat
 
+Demo package for [Ускорение конкатенации строк в Go своими руками](https://habr.com/post/417479/) article.
+
 ### Overview
 
 This package provides simple functions that return concatenation results.
