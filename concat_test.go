@@ -88,11 +88,24 @@ func TestConcat(t *testing.T) {
 	}
 }
 
+var shortStrings = []string{"lorem ", "ipsum ", "dolor sit amet"}
+var longerStrings = []string{
+	strings.Repeat(shortStrings[0], 16),
+	strings.Repeat(shortStrings[1], 16),
+	strings.Repeat(shortStrings[2], 16),
+}
+
 func benchmarkConcat(b *testing.B, fn func([]string) string) {
-	args := []string{"lorem ", "ipsum ", "dolor sit amet"}
-	for i := 0; i < b.N; i++ {
-		_ = fn(args)
-	}
+	b.Run("short", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			_ = fn(shortStrings)
+		}
+	})
+	b.Run("longer", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			_ = fn(longerStrings)
+		}
+	})
 }
 
 func BenchmarkConcat2Operator(b *testing.B) {
